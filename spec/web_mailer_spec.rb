@@ -5,10 +5,10 @@ RSpec.describe WebMailer do
   before do
     # サーバー情報設定
     WebMailer.configuration do |config|
-      config.host = 'imap.mail.yahoo.co.jp'
+      config.host = 'imap_domein'
       config.port = 993
       config.user = 'username'
-      config.passwd = 'passwd'
+      config.passwd = 'password'
       config.examine = 'inbox'
     end
   end

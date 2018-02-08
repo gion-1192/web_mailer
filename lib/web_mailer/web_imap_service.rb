@@ -34,7 +34,7 @@ module WebMailer
     def initialize(options)
       @host, @port, @user, @passwd = options.values_at(:host, :port,
                                                        :user, :passwd)
-      @imap = Net::IMAP.new(@host, @port, true)
+      @imap = Net::IMAP.new(@host, @port, true, nil, false)
       examine(options[:examine]) unless options[:examine].nil?
     end
 
@@ -66,7 +66,7 @@ module WebMailer
     end
 
     def login
-      res = @imap.authenticate('LOGIN', @user, @passwd)
+      res = @imap.login(@user, @passwd)
       @logging_in = true if res && res.name == 'OK'
     end
 
