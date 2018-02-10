@@ -27,6 +27,11 @@ module WebMailer
       imap.fetched_mail(key, &block)
     end
 
-    def distributor; end
+    def distributor(type, &block)
+      raise NoConfigError 'Please configure config.' if @config.nil?
+
+      smtp = WebSmtpService.new(@config.configer)
+      smtp.post_mail(type, &block)
+    end
   end
 end

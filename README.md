@@ -1,8 +1,8 @@
 # WebMailer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/web_mailer`. To experiment with that code, run `bin/console` for an interactive prompt.
+メール受信、送信をシンプルに行うgem
 
-TODO: Delete this and the text above, and describe your gem
+yahooメール、Gmailのみ実装済み
 
 ## Installation
 
@@ -22,7 +22,48 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+・受信手順
+
+IMAPのサーバーデータの登録
+```ruby
+WebMailer.configuration do |config|
+  config.host = 'imap_domain'
+  config.port = 993
+  config.user = 'username'
+  config.passwd = 'password'
+  config.examine = 'inbox'
+end
+```
+
+登録後、asqirerメソッドにて受信
+送信先アドレス、タイトル、本文、添付ファイル形式にはgetterメソッドよりアクセス可能
+```ruby
+WebMailer.asqirer('ALL') do |mail|
+  puts '送信元:' + mail.address[0]
+  puts 'タイトル:' + mail.title
+  puts '本文:' + mail.body
+  mail.tmp_files
+end
+```
+
+・送信手順
+Webメールアカウントの登録
+
+```ruby
+WebMailer.configuration do |config|
+  config.user = 'account_name'
+  config.passwd = 'account_password'
+end
+```
+
+登録後、distributorメソッドにて送信
+```ruby
+WebMailer.distributor(:yahoo) do |mail|
+  mail.to = 'post_mail_address'
+  mail.subject = 'subject'
+  mail.body = 'body'
+end
+```
 
 ## Development
 
@@ -38,4 +79,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
