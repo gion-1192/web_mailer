@@ -36,6 +36,7 @@ end
 ```
 
 登録後、asqirerメソッドにて受信
+
 送信先アドレス、タイトル、本文、添付ファイル形式にはgetterメソッドよりアクセス可能
 ```ruby
 WebMailer.asqirer('ALL') do |mail|
@@ -47,6 +48,7 @@ end
 ```
 
 ・送信手順
+
 Webメールアカウントの登録
 
 ```ruby
